@@ -31,11 +31,16 @@ app.post("/whatsapp-image", async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://api.z-api.io/instances/${process.env.ZAPI_INSTANCE_ID}/token/${process.env.ZAPI_TOKEN}/profile-picture/${phone}`
+        `https://api.z-api.io/instances/${process.env.ZAPI_INSTANCE_ID}/token/${process.env.ZAPI_TOKEN}/profile-picture?phone=${phone}`,{
+            headers:{
+                "Content-Type":"application/json",
+                "Client-Token":process.env.TOKENSEGURANCA
+            }
+        }
     );
 
-    if (response.data && response.data.profile_picture_url) {
-      return res.json({ imageUrl: response.data.profile_picture_url });
+    if (response.data && response.data.link) {
+      return res.json({ imageUrl: response.data.link});
     } else {
       return res.status(404).json({ error: "Imagem não encontrada" });
     }
