@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 // CORS personalizado
 const allowedDomains = process.env.ALLOWED_DOMAINS.split(",");
 
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedDomains.includes(origin)) {
